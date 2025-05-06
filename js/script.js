@@ -429,3 +429,345 @@ function toggleMenu(button) {
         icon.classList.add('fa-xmark');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Cosmic Particle Cursor with reliable trail effect on both hover and click
+const a = document.createElement('div');
+a.className = 'c-wrap';
+document.body.appendChild(a);
+
+const b = document.createElement('div');
+b.className = 'c-core';
+a.appendChild(b);
+
+// Cosmic rays - smaller size
+const n = 16;
+const p = [];
+
+for (let i = 0; i < n; i++) {
+  const q = document.createElement('div');
+  q.className = 'c-ray';
+  q.style.setProperty('--a', `${(i * 360) / n}deg`);
+  q.style.setProperty('--c', ['#3CCF91', '#a881af', '#e3d99f'][i % 3]); // Green, purple, gold
+  a.appendChild(q);
+  p.push(q);
+}
+
+// Single orbital ring
+const r = document.createElement('div');
+r.className = 'c-orbit';
+a.appendChild(r);
+
+// Create container for trail particles
+const tc = document.createElement('div');
+tc.className = 'trail-container';
+document.body.appendChild(tc);
+
+// Variables
+let x = 0, y = 0, X = 0, Y = 0, D = false;
+let lastX = 0, lastY = 0;
+let trailCount = 0;
+
+// Particle colors
+const C = ['#3CCF91', '#a881af', '#e3d99f', '#5e7ce2', '#e25e7c', '#e2c45e'];
+
+// Interval to create trail particles when dragging
+let trailInterval = null;
+
+// Create trail particles - MODIFIED to work on hover
+function createTrail() {
+  // Removed the D check to allow trail on normal hover: if (!D) return;
+  
+  // Distance moved since last particle
+  const dist = Math.hypot(x - lastX, y - lastY);
+  if (dist < 5) return; // Don't create particles if barely moved
+  
+  lastX = x;
+  lastY = y;
+  
+  // Create different number of particles based on drag vs hover
+  // More particles when dragging, fewer when just hovering
+  const particleCount = D ? (2 + Math.floor(Math.random() * 2)) : (1 + Math.floor(Math.random() * 2));
+  
+  for (let i = 0; i < particleCount; i++) {
+    const c = document.createElement('div');
+    c.className = 'c-particle';
+    
+    // Position with slight random offset
+    c.style.left = `${x + (Math.random() * 10 - 5)}px`;
+    c.style.top = `${y + (Math.random() * 10 - 5)}px`;
+    
+    // Random color from palette
+    c.style.backgroundColor = C[Math.floor(Math.random() * C.length)];
+    
+    // Random size between 3-7px
+    const size = 3 + Math.random() * 4;
+    c.style.width = `${size}px`;
+    c.style.height = `${size}px`;
+    
+    // Append to container
+    tc.appendChild(c);
+    
+    // Remove after delay
+    setTimeout(() => {
+      c.remove();
+    }, 800 + Math.random() * 500);
+  }
+}
+
+// Event listeners
+document.addEventListener('mousemove', e => {
+  x = e.clientX;
+  y = e.clientY;
+  
+  // Create trail on all movement, not just when dragging
+  createTrail();
+});
+
+document.addEventListener('mousedown', () => {
+  D = true;
+  a.classList.add('z');
+  lastX = x;
+  lastY = y;
+  
+  // Start trail interval - create particles even during slow drags
+  trailInterval = setInterval(createTrail, 50);
+  
+  // Click effect
+  const w = document.createElement('div');
+  w.className = 'c-click';
+  w.style.left = `${x}px`;
+  w.style.top = `${y}px`;
+  document.body.appendChild(w);
+  
+  setTimeout(() => w.remove(), 700);
+});
+
+document.addEventListener('mouseup', () => {
+  D = false;
+  a.classList.remove('z');
+  
+  // Clear trail interval
+  if (trailInterval) {
+    clearInterval(trailInterval);
+    trailInterval = null;
+  }
+});
+
+// Interactive elements 
+const E = document.querySelectorAll('a, button, input, select, textarea, [role="button"]');
+E.forEach(e => {
+  e.addEventListener('mouseenter', () => {
+    a.classList.add('h');
+  });
+  
+  e.addEventListener('mouseleave', () => {
+    a.classList.remove('h');
+  });
+});
+
+// Animation loop
+function U() {
+  // Smooth following
+  X += (x - X) * 0.2;
+  Y += (y - Y) * 0.2;
+  
+  // Position cursor
+  a.style.transform = `translate(${X}px, ${Y}px)`;
+  
+  // Update rays
+  p.forEach((q, i) => {
+    const d = 35; // Smaller fixed size
+    q.style.setProperty('--d', `${d}px`);
+    
+    // Small flutter
+    const j = Math.sin(Date.now() / 1000 + i * 0.5) * 3;
+    q.style.setProperty('--j', `${j}px`);
+  });
+  
+  requestAnimationFrame(U);
+}
+
+U();
+
+// Disable default cursor
+document.body.style.cursor = 'none';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// project section
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all project lists and buttons
+    const projectCategories = document.querySelectorAll('.project-category');
+    
+    projectCategories.forEach((category) => {
+        const projectList = category.querySelector('.project-list');
+        const scrollLeftBtn = category.querySelector('.scroll-left');
+        const scrollRightBtn = category.querySelector('.scroll-right');
+        const scrollDots = category.querySelectorAll('.scroll-dot');
+        const cards = projectList.querySelectorAll('.project-card');
+        
+        // Calculate how many cards to show based on screen width
+        let cardsPerView = Math.floor(projectList.offsetWidth / cards[0].offsetWidth);
+        if (cardsPerView < 1) cardsPerView = 1;
+        
+        // Current scroll position
+        let currentIndex = 0;
+        
+        // Update the active dot based on current scroll position
+        function updateScrollIndicator() {
+            const maxScrollLeft = projectList.scrollWidth - projectList.clientWidth;
+            const scrollPercentage = projectList.scrollLeft / maxScrollLeft;
+            const totalPositions = Math.ceil(cards.length / cardsPerView);
+            
+            const activeDotIndex = Math.min(
+                Math.floor(scrollPercentage * totalPositions),
+                scrollDots.length - 1
+            );
+            
+            scrollDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeDotIndex);
+            });
+            
+            // Show/hide scroll buttons based on position
+            if (scrollLeftBtn) {
+                scrollLeftBtn.style.visibility = projectList.scrollLeft <= 10 ? 'hidden' : 'visible';
+            }
+            
+            if (scrollRightBtn) {
+                scrollRightBtn.style.visibility = 
+                    projectList.scrollLeft >= maxScrollLeft - 10 ? 'hidden' : 'visible';
+            }
+        }
+        
+        // Initialize scroll indicators
+        updateScrollIndicator();
+        
+        // Scroll to a specific card
+        function scrollToCard(index) {
+            if (index < 0) index = 0;
+            if (index >= cards.length) index = cards.length - 1;
+            
+            currentIndex = index;
+            const cardWidth = cards[0].offsetWidth + 20; // Card width + margins
+            projectList.scrollTo({
+                left: index * cardWidth,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Scroll left button
+        if (scrollLeftBtn) {
+            scrollLeftBtn.addEventListener('click', function() {
+                scrollToCard(currentIndex - cardsPerView);
+            });
+        }
+        
+        // Scroll right button
+        if (scrollRightBtn) {
+            scrollRightBtn.addEventListener('click', function() {
+                scrollToCard(currentIndex + cardsPerView);
+            });
+        }
+        
+        // Click on scroll dots
+        scrollDots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                const cardsPerDot = Math.ceil(cards.length / scrollDots.length);
+                scrollToCard(index * cardsPerDot);
+            });
+        });
+        
+        // Disable automatic horizontal scrolling with mouse wheel
+        // We'll only allow scrolling via the arrow buttons
+        projectList.addEventListener('wheel', function(e) {
+            // Prevent default horizontal scrolling behavior when using mouse wheel
+            if (e.deltaY !== 0 && !e.ctrlKey) {
+                e.preventDefault();
+                // Don't scroll horizontally on mouse wheel events
+            }
+        });
+        
+        // Update indicators on scroll
+        projectList.addEventListener('scroll', function() {
+            updateScrollIndicator();
+            
+            // Update current index
+            const cardWidth = cards[0].offsetWidth + 20;
+            currentIndex = Math.round(projectList.scrollLeft / cardWidth);
+        });
+        
+        // Touch controls
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        projectList.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        
+        projectList.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            
+            // Determine if it was a swipe
+            const swipeDistance = touchEndX - touchStartX;
+            if (Math.abs(swipeDistance) > 50) {
+                // If swiped right, go to previous card
+                if (swipeDistance > 0) {
+                    scrollToCard(currentIndex - 1);
+                } 
+                // If swiped left, go to next card
+                else {
+                    scrollToCard(currentIndex + 1);
+                }
+            }
+        }, { passive: true });
+        
+        // Resize handler
+        window.addEventListener('resize', function() {
+            // Recalculate cards per view on window resize
+            cardsPerView = Math.floor(projectList.offsetWidth / cards[0].offsetWidth);
+            if (cardsPerView < 1) cardsPerView = 1;
+            
+            // Update the scroll position and indicators
+            updateScrollIndicator();
+        });
+    });
+});
