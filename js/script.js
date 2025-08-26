@@ -632,10 +632,8 @@ document.body.style.cursor = 'none';
 
 
 
-// project section
-
+// project section - Fixed and improved version
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all project lists and buttons
     const projectCategories = document.querySelectorAll('.project-category');
     
     projectCategories.forEach((category) => {
@@ -645,19 +643,75 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollDots = category.querySelectorAll('.scroll-dot');
         const cards = projectList.querySelectorAll('.project-card');
         
-        // Calculate how many cards to show based on screen width
-        let cardsPerView = Math.floor(projectList.offsetWidth / cards[0].offsetWidth);
-        if (cardsPerView < 1) cardsPerView = 1;
+        // Staggered reveal on first paint
+        cards.forEach((card, i) => {
+            card.classList.add('reveal');
+            setTimeout(() => card.classList.add('show'), 120 * i);
+        });
+
+        // 3D tilt effect with throttling
+        cards.forEach((card) => {
+            let rect;
+            let ticking = false;
+            
+            function setTilt(e) {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        rect = rect || card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const rx = ((y / rect.height) - 0.5) * -8;
+                        const ry = ((x / rect.width) - 0.5) * 8;
+                        card.style.setProperty('--rx', rx + 'deg');
+                        card.style.setProperty('--ry', ry + 'deg');
+                        card.classList.add('tilted');
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            function resetTilt() {
+                card.classList.remove('tilted');
+                card.style.removeProperty('--rx');
+                card.style.removeProperty('--ry');
+                rect = undefined;
+            }
+            
+            card.addEventListener('mousemove', setTilt, { passive: true });
+            card.addEventListener('mouseleave', resetTilt);
+        });
         
-        // Current scroll position
+        // Improved scroll management
+        let isScrolling = false;
+        let scrollTimeout;
         let currentIndex = 0;
         
-        // Update the active dot based on current scroll position
-        function updateScrollIndicator() {
-            const maxScrollLeft = projectList.scrollWidth - projectList.clientWidth;
-            const scrollPercentage = projectList.scrollLeft / maxScrollLeft;
-            const totalPositions = Math.ceil(cards.length / cardsPerView);
+        // Debounced scroll handler
+        function handleScroll() {
+            if (scrollTimeout) clearTimeout(scrollTimeout);
             
+            scrollTimeout = setTimeout(() => {
+                updateScrollIndicator();
+                isScrolling = false;
+            }, 100);
+        }
+        
+        // Update scroll indicators without causing loops
+        function updateScrollIndicator() {
+            if (!projectList || projectList.scrollWidth <= projectList.clientWidth) return;
+            
+            const maxScrollLeft = projectList.scrollWidth - projectList.clientWidth;
+            const scrollPercentage = Math.max(0, Math.min(1, projectList.scrollLeft / maxScrollLeft));
+            const totalCards = cards.length;
+            const cardsPerView = Math.max(1, Math.floor(projectList.clientWidth / (cards[0]?.offsetWidth + 20)));
+            const totalPositions = Math.ceil(totalCards / cardsPerView);
+            
+            // Update current index
+            const cardWidth = cards[0]?.offsetWidth + 20 || 320;
+            currentIndex = Math.round(projectList.scrollLeft / cardWidth);
+            
+            // Update dots
             const activeDotIndex = Math.min(
                 Math.floor(scrollPercentage * totalPositions),
                 scrollDots.length - 1
@@ -667,7 +721,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dot.classList.toggle('active', index === activeDotIndex);
             });
             
-            // Show/hide scroll buttons based on position
+            // Update button visibility
             if (scrollLeftBtn) {
                 scrollLeftBtn.style.visibility = projectList.scrollLeft <= 10 ? 'hidden' : 'visible';
             }
@@ -678,96 +732,77 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Initialize scroll indicators
-        updateScrollIndicator();
-        
-        // Scroll to a specific card
+        // Smooth scroll to card
         function scrollToCard(index) {
+            if (isScrolling) return;
+        
+            const totalCards = cards.length;
             if (index < 0) index = 0;
-            if (index >= cards.length) index = cards.length - 1;
+            if (index >= totalCards) index = totalCards - 1;
             
             currentIndex = index;
-            const cardWidth = cards[0].offsetWidth + 20; // Card width + margins
+            isScrolling = true;
+            
+            const cardWidth = cards[0]?.offsetWidth + 20 || 320;
+            const targetScroll = index * cardWidth;
+            
             projectList.scrollTo({
-                left: index * cardWidth,
+                left: targetScroll,
                 behavior: 'smooth'
             });
+            
+            // Reset scrolling flag after animation
+            setTimeout(() => {
+                isScrolling = false;
+            }, 500);
         }
         
-        // Scroll left button
+        // Button event listeners
         if (scrollLeftBtn) {
-            scrollLeftBtn.addEventListener('click', function() {
+            scrollLeftBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const cardsPerView = Math.max(1, Math.floor(projectList.clientWidth / (cards[0]?.offsetWidth + 20)));
                 scrollToCard(currentIndex - cardsPerView);
             });
         }
         
-        // Scroll right button
         if (scrollRightBtn) {
-            scrollRightBtn.addEventListener('click', function() {
+            scrollRightBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const cardsPerView = Math.max(1, Math.floor(projectList.clientWidth / (cards[0]?.offsetWidth + 20)));
                 scrollToCard(currentIndex + cardsPerView);
             });
         }
         
-        // Click on scroll dots
+        // Dot click handlers
         scrollDots.forEach((dot, index) => {
-            dot.addEventListener('click', function() {
-                const cardsPerDot = Math.ceil(cards.length / scrollDots.length);
+            dot.addEventListener('click', function(e) {
+                e.preventDefault();
+                const totalCards = cards.length;
+                const cardsPerDot = Math.ceil(totalCards / scrollDots.length);
                 scrollToCard(index * cardsPerDot);
             });
         });
         
-        // Disable automatic horizontal scrolling with mouse wheel
-        // We'll only allow scrolling via the arrow buttons
-        projectList.addEventListener('wheel', function(e) {
-            // Prevent default horizontal scrolling behavior when using mouse wheel
-            if (e.deltaY !== 0 && !e.ctrlKey) {
-                e.preventDefault();
-                // Don't scroll horizontally on mouse wheel events
-            }
-        });
+        // Remove wheel event listener entirely to allow normal page scrolling
+        // The project list will only scroll via buttons, dots, and touch gestures
         
-        // Update indicators on scroll
-        projectList.addEventListener('scroll', function() {
+        // Scroll event listener with debouncing
+        projectList.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Touch controls removed to prevent scrolling interference
+        // Users can scroll horizontally using buttons and dots
+        
+        // Initialize
             updateScrollIndicator();
             
-            // Update current index
-            const cardWidth = cards[0].offsetWidth + 20;
-            currentIndex = Math.round(projectList.scrollLeft / cardWidth);
-        });
-        
-        // Touch controls
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        projectList.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].clientX;
-        }, { passive: true });
-        
-        projectList.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].clientX;
-            
-            // Determine if it was a swipe
-            const swipeDistance = touchEndX - touchStartX;
-            if (Math.abs(swipeDistance) > 50) {
-                // If swiped right, go to previous card
-                if (swipeDistance > 0) {
-                    scrollToCard(currentIndex - 1);
-                } 
-                // If swiped left, go to next card
-                else {
-                    scrollToCard(currentIndex + 1);
-                }
-            }
-        }, { passive: true });
-        
-        // Resize handler
+        // Handle resize
+        let resizeTimeout;
         window.addEventListener('resize', function() {
-            // Recalculate cards per view on window resize
-            cardsPerView = Math.floor(projectList.offsetWidth / cards[0].offsetWidth);
-            if (cardsPerView < 1) cardsPerView = 1;
-            
-            // Update the scroll position and indicators
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
             updateScrollIndicator();
+            }, 250);
         });
     });
 });
