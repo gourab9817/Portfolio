@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Gourab Choudhury">
+    <title>Store | Gourab Choudhury</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="images/Gourab.logo.png" type="image/x-icon">
+
+    <style>
+        .store-container {
+            min-height: 100vh;
+            padding: 80px 20px 40px;
+            background-color: var(--black-color);
+        }
+
+        .store-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .store-header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: var(--white-color);
+        }
+
+        .store-header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .store-item {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c3437 100%);
+            border: 1px solid #2c3437;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-item:hover {
+            transform: translateY(-5px);
+            border-color: #417E38;
+            box-shadow: 0 10px 30px rgba(65, 126, 56, 0.2);
+        }
+
+        .store-item-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            background: linear-gradient(135deg, #417E38, #2FC291);
+        }
+
+        .store-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--white-color);
+        }
+
+        .store-item p {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #417E38;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .download-btn:hover {
+            background-color: #2FC291;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .download-btn i {
+            font-size: 1em;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #417E38;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background-color: #2FC291;
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background-color: #2FC291;
+        }
+
+        .file-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .badge-video {
+            background: rgba(0, 200, 83, 0.15);
+            color: #00c853;
+        }
+
+        .badge-doc {
+            background: rgba(106, 17, 203, 0.15);
+            color: #b48edb;
+        }
+
+        .badge-pdf {
+            background: rgba(255, 126, 95, 0.15);
+            color: #ff7e5f;
+        }
+
+        @media (max-width: 768px) {
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="store-container">
+        <div class="store-header">
+            <h1>My Store</h1>
+            <p>Videos, Documents, and Resources</p>
+        </div>
+
+        <div class="store-grid" id="storeGrid">
+            <!-- Items will be dynamically generated -->
+        </div>
+    </div>
+
+    <script>
+        const baseUrl = 'https://gourabchoudhury.tech/store/';
+        const filesJsonUrl = 'store/files.json';
+
+        // Automatically fetch and load files from JSON
+        async function loadStoreFiles() {
+            try {
+                const response = await fetch(filesJsonUrl);
+                if (!response.ok) {
+                    throw new Error('Failed to load files');
+                }
+                const storeFiles = await response.json();
+                renderStoreItems(storeFiles);
+            } catch (error) {
+                console.error('Error loading store files:', error);
+                showError();
+            }
+        }
+
+        function getFileIcon(type) {
+            switch (type) {
+                case 'video':
+                    return 'fa-video';
+                case 'doc':
+                case 'docx':
+                    return 'fa-file-word';
+                case 'pdf':
+                    return 'fa-file-pdf';
+                case 'image':
+                case 'img':
+                    return 'fa-file-image';
+                case 'zip':
+                case 'rar':
+                    return 'fa-file-archive';
+                default:
+                    return 'fa-file';
+            }
+        }
+
+        function getFileTypeBadge(type) {
+            if (type === 'video') return 'badge-video';
+            if (type === 'pdf') return 'badge-pdf';
+            return 'badge-doc';
+        }
+
+        function getFileTypeLabel(type) {
+            if (type === 'video') return 'VIDEO';
+            if (type === 'pdf') return 'PDF';
+            if (type === 'image' || type === 'img') return 'IMAGE';
+            if (type === 'zip' || type === 'rar') return 'ARCHIVE';
+            return 'DOCUMENT';
+        }
+
+        function detectFileType(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+            
+            // Video files
+            if (['mp4', 'webm', 'mov', 'avi', 'mkv', 'flv'].includes(extension)) {
+                return 'video';
+            }
+            // PDF files
+            if (extension === 'pdf') {
+                return 'pdf';
+            }
+            // Image files
+            if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(extension)) {
+                return 'image';
+            }
+            // Archive files
+            if (['zip', 'rar', '7z', 'tar', 'gz'].includes(extension)) {
+                return 'zip';
+            }
+            // Document files
+            if (['doc', 'docx', 'txt', 'rtf'].includes(extension)) {
+                return 'doc';
+            }
+            
+            return 'doc'; // Default type
+        }
+
+        function renderStoreItems(storeFiles) {
+            const grid = document.getElementById('storeGrid');
+            grid.innerHTML = ''; // Clear existing content
+            
+            if (!storeFiles || storeFiles.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; color: #888; padding: 40px;">
+                        <i class="fas fa-folder-open" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>No files available at the moment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            storeFiles.forEach(file => {
+                const fileUrl = baseUrl + file.name;
+                const fileType = file.type || detectFileType(file.name);
+                
+                const item = document.createElement('div');
+                item.className = 'store-item';
+                item.innerHTML = `
+                    <div class="store-item-icon">
+                        <i class="fas ${getFileIcon(fileType)}"></i>
+                    </div>
+                    <h3>${file.name}</h3>
+                    <p>${file.description || 'Click download button to save this file'}</p>
+                    <span class="file-type-badge ${getFileTypeBadge(fileType)}">${getFileTypeLabel(fileType)}</span>
+                    <div style="margin-top: 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <a href="${fileUrl}" download="${file.name}" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </a>
+                        <button class="copy-btn" onclick="copyToClipboard('${fileUrl}', this)">
+                            <i class="fas fa-copy"></i>
+                            <span class="copy-text">Copy Link</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        function showError() {
+            const grid = document.getElementById('storeGrid');
+            grid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; color: #ff7e5f; padding: 40px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; margin-bottom: 20px; opacity: 0.7;"></i>
+                    <p>Failed to load files. Please try again later.</p>
+                </div>
+            `;
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const copyText = button.querySelector('.copy-text');
+                const icon = button.querySelector('i');
+                
+                copyText.textContent = 'Copied!';
+                icon.className = 'fas fa-check';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyText.textContent = 'Copy Link';
+                    icon.className = 'fas fa-copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy link. Please try again.');
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', loadStoreFiles);
+    </script>
+</body>
+
+</html>
+

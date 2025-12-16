@@ -1,0 +1,13 @@
+[
+    {
+        "name": "xyz.mp4",
+        "type": "video",
+        "description": "Video content"
+    },
+    {
+        "name": "PanavResume.pdf",
+        "type": "pdf",
+        "description": "PDF content"
+    }
+]
+
