@@ -1,0 +1,30 @@
+# Example .htaccess for securing upload page
+# Rename this file to .htaccess to use it
+
+# Protect upload.html and upload.php with password
+<FilesMatch "(upload\.html|upload\.php)">
+    AuthType Basic
+    AuthName "Store Admin Area"
+    AuthUserFile /full/path/to/.htpasswd
+    Require valid-user
+</FilesMatch>
+
+# Optional: Increase PHP upload limits
+php_value upload_max_filesize 100M
+php_value post_max_size 100M
+php_value max_execution_time 300
+php_value max_input_time 300
+
+# Allow CORS for your domain (adjust as needed)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Instructions to create .htpasswd file:
+# Run this command in terminal:
+# htpasswd -c /full/path/to/.htpasswd admin
+# This will create a password for user "admin"
+

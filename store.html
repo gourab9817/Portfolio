@@ -14,6 +14,17 @@
     <link rel="shortcut icon" href="images/Gourab.logo.png" type="image/x-icon">
 
     <style>
+        /* Force normal cursor behavior - override custom cursor from main CSS */
+        body, 
+        a, button, input, select, textarea, [role="button"],
+        *, *::before, *::after {
+            cursor: auto !important;
+        }
+
+        a:hover, button:hover, [role="button"]:hover {
+            cursor: pointer !important;
+        }
+
         .store-container {
             min-height: 100vh;
             padding: 80px 20px 40px;
@@ -50,7 +61,6 @@
             border-radius: 12px;
             padding: 25px;
             transition: all 0.4s ease;
-            cursor: default;
             position: relative;
             overflow: hidden;
         }
@@ -97,7 +107,6 @@
             font-size: 0.9em;
             border-radius: 6px;
             transition: all 0.3s ease;
-            cursor: pointer;
             border: none;
         }
 
@@ -120,7 +129,6 @@
             color: white;
             border: none;
             border-radius: 6px;
-            cursor: pointer;
             font-size: 0.9em;
             font-weight: bold;
             transition: all 0.3s ease;
@@ -160,15 +168,60 @@
             color: #ff7e5f;
         }
 
+        .badge-image {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+
+        .upload-link {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #417E38, #2FC291);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(65, 126, 56, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .upload-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(65, 126, 56, 0.6);
+            color: white;
+        }
+
+        .upload-link i {
+            font-size: 1.2em;
+        }
+
         @media (max-width: 768px) {
             .store-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .upload-link {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9em;
             }
         }
     </style>
 </head>
 
 <body>
+    <!-- <a href="store/upload.html" class="upload-link">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Upload File</span>
+    </a> -->
+
     <div class="store-container">
         <div class="store-header">
             <h1>My Store</h1>
@@ -201,16 +254,22 @@
 
         function getFileIcon(type) {
             switch (type) {
+                case 'mp4':
+                case 'webm':
                 case 'video':
                     return 'fa-video';
-                case 'doc':
-                case 'docx':
-                    return 'fa-file-word';
-                case 'pdf':
-                    return 'fa-file-pdf';
+                case 'jpeg':
+                case 'jpg':
+                case 'png':
+                case 'webp':
                 case 'image':
                 case 'img':
                     return 'fa-file-image';
+                case 'pdf':
+                    return 'fa-file-pdf';
+                case 'doc':
+                case 'docx':
+                    return 'fa-file-word';
                 case 'zip':
                 case 'rar':
                     return 'fa-file-archive';
@@ -220,14 +279,21 @@
         }
 
         function getFileTypeBadge(type) {
-            if (type === 'video') return 'badge-video';
+            if (type === 'mp4' || type === 'webm' || type === 'video') return 'badge-video';
             if (type === 'pdf') return 'badge-pdf';
+            if (type === 'jpeg' || type === 'jpg' || type === 'png' || type === 'webp' || type === 'image') return 'badge-image';
             return 'badge-doc';
         }
 
         function getFileTypeLabel(type) {
+            if (type === 'mp4') return 'MP4';
+            if (type === 'webm') return 'WEBM';
             if (type === 'video') return 'VIDEO';
             if (type === 'pdf') return 'PDF';
+            if (type === 'jpeg') return 'JPEG';
+            if (type === 'jpg') return 'JPG';
+            if (type === 'png') return 'PNG';
+            if (type === 'webp') return 'WEBP';
             if (type === 'image' || type === 'img') return 'IMAGE';
             if (type === 'zip' || type === 'rar') return 'ARCHIVE';
             return 'DOCUMENT';
