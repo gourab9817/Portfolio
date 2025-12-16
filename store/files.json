@@ -18,6 +18,11 @@
         "name": "sample2(flag).mp4",
         "type": "video",
         "description": "Video content"
+    },
+    {
+        "name": "sample3.mp4",
+        "type": "video",
+        "description": "Video content"
     }
 ]
 
