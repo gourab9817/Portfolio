@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CMS Pro | Gourab Choudhury</title>
+  <link rel="icon" href="../assets/gourab-logo.png">
+  <link rel="stylesheet" href="../styles.css?v=14">
+</head>
+<body data-page="projects">
+  <header class="site-header"><nav class="nav container"><a class="brand" href="../index.html">Gourab Choudhury</a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button><div class="nav-links"><a data-nav="about" href="../index.html">about</a><a data-nav="work" href="../work/index.html">work</a><a data-nav="projects" href="index.html">projects</a><a data-nav="notes" href="../notes/index.html">notes</a><a data-nav="resume" href="../resume/index.html">resume</a><a data-nav="contact" href="../contact/index.html">contact</a><button class="command-button" type="button" data-command-open>ctrl k</button></div></nav></header>
+  <main class="container page narrow">
+    <a class="back-link" href="index.html">← projects</a>
+    <header class="page-head">
+      <h1>CMS Pro</h1>
+      <p>CMS-Pro is an AI-powered Content Management System that leverages modern Large Language Models (LLMs) and agentic AI architecture to automate and enhance the entire content lifecycle. Rather than functioning as a traditional CMS, the platform incorporates intelligent AI agents capable of understanding user intent, generating high-quality content, refining existing articles, optimizing SEO, and assisting with editorial workflows through contextual reasoning. The system is designed around a modular, scalable architecture where specialized agents collaborate to perform complex multi-step tasks, enabling human-in-the-loop decision making while maintaining flexibility and extensibility. By combining retrieval, prompt orchestration, and autonomous task execution, CMS-Pro demonstrates how agentic AI can transform content creation into an intelligent, efficient, and adaptive workflow, significantly reducing manual effort while improving content quality and consistency.</p>
+      <p><a href="https://github.com/gourab9817/CMS-Pro" target="_blank" rel="noreferrer">GitHub repository</a></p>
+    </header>
+    <figure class="architecture-figure">
+      <a class="architecture-link" href="../assets/TechnicalArchitecture-CMS-pro.png" target="_blank" rel="noreferrer">
+        <img class="architecture-image" src="../assets/TechnicalArchitecture-CMS-pro.png" alt="CMS Pro technical architecture showing the API gateway, Kafka router, agents, data stores, observability, and escalation paths" loading="lazy">
+      </a>
+      <figcaption>CMS Pro technical architecture: request gateway, agent routing, retrieval, action handling, observability, and escalation. <a href="../assets/TechnicalArchitecture-CMS-pro.png" target="_blank" rel="noreferrer">Open full diagram -&gt;</a></figcaption>
+    </figure>
+    <section class="case-section">
+      <h2>Why It Matters</h2>
+      <p>
+        AI support systems are not just chat interfaces. They have to protect sensitive input, ground answers in policy,
+        route work to the right capability, preserve operational context, and fail safely when an external dependency is slow or unavailable.
+        CMS Pro treats those concerns as first-class system design problems.
+      </p>
+    </section>
+    <section class="case-section">
+      <h2>Engineering Focus</h2>
+      <ul>
+        <li><strong>Secure request boundary.</strong> FastAPI gateway with authentication, rate limiting, PII stripping, and a WebSocket path for streamed responses.</li>
+        <li><strong>Agentic orchestration.</strong> Kafka-backed routing coordinates data-fetch, retrieval-augmented generation, and escalation agents, with a multi-provider AI abstraction across Groq, Claude, GPT-4, Gemini, Ollama, and other providers.</li>
+        <li><strong>Grounded retrieval.</strong> Local sentence-transformer embeddings pair with ChromaDB for development and Pinecone for production, using hybrid retrieval and citations to keep answers tied to source policy.</li>
+        <li><strong>Production resilience.</strong> Circuit breakers, Redis and PostgreSQL idempotency controls, retries, fallback behavior, and async streaming protect user workflows from duplicate actions and dependency failures.</li>
+        <li><strong>Operational visibility.</strong> Prometheus, Grafana, and structured logs expose latency, error, token-cost, escalation, and SLA signals across the system.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer container"><span>CMS Pro</span><a href="https://github.com/gourab9817/CMS-Pro" target="_blank" rel="noreferrer">repository</a></footer>
+  <div class="command-menu" data-command-menu hidden><div class="command-panel"><input type="search" placeholder="Jump to a page..." data-command-input><div class="command-list"><a href="../index.html">about</a><a href="../work/index.html">work</a><a href="index.html">projects</a><a href="../notes/index.html">notes</a><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></div></div></div>
+  <script src="../script.js"></script>
+</body>
+</html>

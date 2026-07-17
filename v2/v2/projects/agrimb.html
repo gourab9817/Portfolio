@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgrimB | Gourab Choudhury</title>
+  <link rel="icon" href="../assets/gourab-logo.png">
+  <link rel="stylesheet" href="../styles.css?v=14">
+</head>
+<body data-page="projects">
+  <header class="site-header"><nav class="nav container"><a class="brand" href="../index.html">Gourab Choudhury</a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button><div class="nav-links"><a data-nav="about" href="../index.html">about</a><a data-nav="work" href="../work/index.html">work</a><a data-nav="projects" href="index.html">projects</a><a data-nav="notes" href="../notes/index.html">notes</a><a data-nav="resume" href="../resume/index.html">resume</a><a data-nav="contact" href="../contact/index.html">contact</a><button class="command-button" type="button" data-command-open>ctrl k</button></div></nav></header>
+  <main class="container page narrow">
+    <a class="back-link" href="index.html">← projects</a>
+    <header class="page-head">
+      <h1>AgrimB</h1>
+      <p>AgrimB is an AI-powered agricultural marketplace that digitizes the crop procurement lifecycle by connecting farmers and buyers through an intelligent mobile platform. The application combines AI-based crop quality analysis, real-time weather intelligence, location-aware marketplace discovery, structured visit scheduling, and cloud-powered communication into a unified ecosystem. Built with Flutter using Clean Architecture and MVVM, AgrimB integrates Firebase, machine learning services, and external APIs to improve transparency, efficiency, and decision-making throughout agricultural commerce.</p>
+      <p><a href="https://github.com/gourab9817/AgrimB" target="_blank" rel="noreferrer">GitHub repository</a></p>
+    </header>
+    <figure class="architecture-figure">
+      <a class="architecture-link" href="../assets/Agrim_B_app_architecture.png" target="_blank" rel="noreferrer">
+        <img class="architecture-image" src="../assets/Agrim_B_app_architecture.png" alt="AgrimB app architecture showing Presentation, Business Logic, Data, and State Management layers connecting to Firebase, weather, crop analysis, and Google services" loading="lazy">
+      </a>
+    </figure>
+    <section class="case-section">
+      <h2>Why It Matters</h2>
+      <p>
+        Agricultural trading is often hindered by fragmented communication, inconsistent crop quality evaluation, limited market visibility, and inefficient coordination between buyers and farmers. Purchasing decisions are frequently made without reliable quality insights, localized weather information, or structured transaction workflows, leading to uncertainty and operational inefficiencies.
+      </p>
+      <p>
+        AgrimB addresses these challenges by building an intelligent digital ecosystem for agricultural commerce. The platform combines AI-powered crop quality assessment, weather forecasting, GPS-based location services, multilingual accessibility, real-time notifications, and structured marketplace workflows into a single application. Instead of functioning solely as a marketplace, AgrimB enables data-driven agricultural decision-making by providing buyers with actionable insights while simplifying the complete buying journey — from crop discovery and inspection to scheduling, negotiation, and deal completion.
+      </p>
+    </section>
+    <section class="case-section">
+      <h2>Engineering Focus</h2>
+      <ul>
+        <li><strong>Clean Architecture &amp; MVVM</strong> — Designed using a layered architecture that separates Presentation, Business Logic, and Data layers, ensuring maintainability, scalability, and testability.</li>
+        <li><strong>Reactive State Management</strong> — Implements the Provider pattern with ChangeNotifier for efficient dependency injection and responsive UI synchronization across complex user workflows.</li>
+        <li><strong>AI-Powered Crop Analysis</strong> — Integrates a custom machine learning inference service capable of analyzing crop images, detecting healthy and defective seeds, and generating automated crop quality assessments before transactions.</li>
+        <li><strong>Cloud-Native Backend Integration</strong> — Utilizes Firebase Authentication, Firestore, Cloud Storage, and Firebase Cloud Messaging to deliver secure authentication, cloud storage, real-time synchronization, and notification delivery.</li>
+        <li><strong>Location &amp; Weather Intelligence</strong> — Integrates OpenWeather APIs with Google Location Services to provide localized weather forecasts and environmental insights that directly influence agricultural planning and purchasing decisions.</li>
+        <li><strong>Marketplace Workflow Automation</strong> — Digitizes the complete procurement lifecycle, including crop discovery, visit scheduling, verification, negotiation, document management, and transaction completion.</li>
+        <li><strong>Cross-Platform Engineering</strong> — Built with Flutter, enabling deployment across Android, iOS, Web, Windows, macOS, and Linux while maintaining a shared codebase and consistent user experience.</li>
+      </ul>
+    </section>
+    <section class="case-section">
+      <h2>Engineering Highlights</h2>
+      <ul>
+        <li>AI-powered crop quality assessment using a custom machine learning inference API.</li>
+        <li>Enterprise-grade Flutter application built on Clean Architecture with MVVM principles.</li>
+        <li>Secure cloud infrastructure powered by Firebase Authentication, Firestore, Storage, and Cloud Messaging.</li>
+        <li>Intelligent weather forecasting integrated with OpenWeather APIs for agriculture-aware decision support.</li>
+        <li>GPS-enabled marketplace powered by Google Maps and Location Services.</li>
+        <li>End-to-end agricultural marketplace covering crop discovery, scheduling, verification, negotiation, documentation, and deal completion.</li>
+        <li>Modular service-oriented architecture enabling independent integration of AI, weather, authentication, storage, notifications, and external APIs.</li>
+        <li>Multilingual support with English and Hindi localization to improve accessibility across diverse farming communities.</li>
+        <li>Reusable component architecture with repository pattern, service abstraction, and scalable state management for long-term maintainability.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer container"><span>AgrimB</span><a href="https://github.com/gourab9817/AgrimB" target="_blank" rel="noreferrer">repository</a></footer>
+  <div class="command-menu" data-command-menu hidden><div class="command-panel"><input type="search" placeholder="Jump to a page..." data-command-input><div class="command-list"><a href="../index.html">about</a><a href="../work/index.html">work</a><a href="index.html">projects</a><a href="../notes/index.html">notes</a><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></div></div></div>
+  <script src="../script.js"></script>
+</body>
+</html>

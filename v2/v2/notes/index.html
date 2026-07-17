@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>notes | Gourab Choudhury</title>
+  <link rel="icon" href="../assets/gourab-logo.png">
+  <link rel="stylesheet" href="../styles.css?v=15">
+</head>
+<body data-page="notes">
+  <header class="site-header"><nav class="nav container"><a class="brand" href="../index.html">Gourab Choudhury</a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button><div class="nav-links"><a data-nav="about" href="../index.html">about</a><a data-nav="work" href="../work/index.html">work</a><a data-nav="projects" href="../projects/index.html">projects</a><a data-nav="notes" href="index.html">notes</a><a data-nav="resume" href="../resume/index.html">resume</a><a data-nav="contact" href="../contact/index.html">contact</a><button class="command-button" type="button" data-command-open>ctrl k</button></div></nav></header>
+  <main class="container page narrow">
+    <header class="page-head">
+      <h1>Notes</h1>
+      <p>Short engineering thoughts. Not polished essays — just the residue of decisions I've had to actually make.</p>
+    </header>
+    <div class="article-list">
+      <article>
+        <h2>Simple systems are a product decision, not a technical one</h2>
+        <p>
+          Complexity is rarely an accident — it's usually the sum of small moments where someone chose "handle it later" over "handle it now." I've learned to notice that moment as it's happening, because it's cheaper to resist there than to refactor after. A system that's easy to debug isn't simpler by luck; it's simpler because someone kept saying no to a shortcut. I care less about clever code and more about whether the next person to touch this — including future me — can reason about it without a Slack thread.
+        </p>
+        <div class="note-tags">
+          <span class="note-tag">engineering</span>
+          <span class="note-tag">systems</span>
+          <span class="note-tag">maintainability</span>
+        </div>
+      </article>
+      <article>
+        <h2>Integrations are where promises get tested</h2>
+        <p>
+          It's easy to design an integration on a whiteboard where every API responds instantly and every token is valid. It's a different thing entirely when a token expires mid-session, or an upstream service goes quiet for four seconds and your users notice. OAuth flows, roster syncs, event propagation — none of this is background plumbing. It's the actual point where a product's promise either survives contact with reality or doesn't. I've stopped treating "the integration is done" and "the integration is reliable" as the same milestone.
+        </p>
+        <div class="note-tags">
+          <span class="note-tag">platform</span>
+          <span class="note-tag">integrations</span>
+          <span class="note-tag">reliability</span>
+        </div>
+      </article>
+      <article>
+        <h2>Ownership outlives the ticket</h2>
+        <p>
+          Somewhere along the way I stopped measuring my work by whether the ticket closed and started measuring it by whether I'd still trust the thing three months later, at 2 AM, with no one else awake to ask. That shift changes what you pay attention to — edge cases you weren't asked to handle, monitoring no one requested, a rollout plan for a change nobody thinks will break anything. It's slower in the moment. It's the only version of "done" I actually believe in.
+        </p>
+        <div class="note-tags">
+          <span class="note-tag">product engineering</span>
+          <span class="note-tag">execution</span>
+          <span class="note-tag">ownership</span>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer class="footer container"><span>notes</span><a href="../projects/index.html">projects</a></footer>
+  <div class="command-menu" data-command-menu hidden><div class="command-panel"><input type="search" placeholder="Jump to a page..." data-command-input><div class="command-list"><a href="../index.html">about</a><a href="../work/index.html">work</a><a href="../projects/index.html">projects</a><a href="index.html">notes</a><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></div></div></div>
+  <script src="../script.js"></script>
+</body>
+</html>

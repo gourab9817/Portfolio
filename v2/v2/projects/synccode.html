@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synccode | Gourab Choudhury</title>
+  <link rel="icon" href="../assets/gourab-logo.png">
+  <link rel="stylesheet" href="../styles.css?v=14">
+</head>
+<body data-page="projects">
+  <header class="site-header"><nav class="nav container"><a class="brand" href="../index.html">Gourab Choudhury</a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button><div class="nav-links"><a data-nav="about" href="../index.html">about</a><a data-nav="work" href="../work/index.html">work</a><a data-nav="projects" href="index.html">projects</a><a data-nav="notes" href="../notes/index.html">notes</a><a data-nav="resume" href="../resume/index.html">resume</a><a data-nav="contact" href="../contact/index.html">contact</a><button class="command-button" type="button" data-command-open>ctrl k</button></div></nav></header>
+  <main class="container page narrow">
+    <a class="back-link" href="index.html">← projects</a>
+    <header class="page-head">
+      <h1>Synccode</h1>
+      <p>SyncCode is a full-stack, real-time collaborative engineering platform designed to bring distributed software teams into a single intelligent workspace. Built using an event-driven and scalable architecture, it combines a conflict-free collaborative code editor (Yjs CRDT), low-latency WebRTC video conferencing, collaborative whiteboarding, end-to-end encrypted messaging, and sandboxed multi-language code execution into one seamless environment. The platform also integrates AI-powered interview assistance, where large language models analyze uploaded resumes and automatically generate role-specific technical interview questions, streamlining the hiring process. Leveraging technologies such as React, Node.js, Socket.IO, Redis, PostgreSQL, Prisma, Supabase, and self-hosted Piston containers, SyncCode demonstrates modern distributed systems design, real-time synchronization, secure communication, and intelligent workflow automation, providing an all-in-one collaborative environment for coding interviews, pair programming, technical mentoring, and remote software development.</p>
+      <p><a href="https://www.synccode.in/" target="_blank" rel="noreferrer">Live site</a></p>
+    </header>
+    <img class="case-image" src="../assets/Synccodeimage.png" alt="Synccode product interface preview">
+    <section class="case-section">
+      <h2>Why It Matters</h2>
+      <p>
+        Modern software development is no longer an individual activity—it is a collaborative process involving pair programming, technical interviews, mentoring, design discussions, and distributed engineering teams. Yet developers still rely on multiple disconnected tools for code editing, video conferencing, whiteboarding, communication, and code execution, resulting in constant context switching and fragmented workflows. SyncCode addresses this challenge by bringing every essential collaboration capability into a single real-time workspace. Developers can write code together, communicate instantly, execute programs securely, brainstorm visually, and even leverage AI-generated interview questions without ever leaving the session. By reducing friction between collaboration and development, SyncCode enables teams to focus on solving problems rather than managing tools, ultimately improving productivity, communication, and the overall engineering experience.
+      </p>
+    </section>
+    <section class="case-section">
+      <h2>Engineering Focus</h2>
+      <p>
+        SyncCode is engineered around the principles of low-latency collaboration, distributed systems, security, and scalable architecture. Every major component has been designed to provide a seamless multi-user experience while maintaining consistency, reliability, and performance across geographically distributed participants.
+      </p>
+      <ul>
+        <li><strong>Real-Time Collaborative Editing</strong> — Built using Yjs CRDTs, allowing multiple engineers to edit the same document simultaneously without merge conflicts while guaranteeing eventual consistency, even during network interruptions.</li>
+        <li><strong>Scalable Event-Driven Communication</strong> — Powered by Socket.IO with Redis Pub/Sub, enabling real-time synchronization of code changes, whiteboard events, chat messages, and session state across multiple backend instances.</li>
+        <li><strong>Peer-to-Peer Communication</strong> — Uses WebRTC for ultra-low-latency video conferencing and screen sharing, ensuring media streams flow directly between participants instead of burdening the application server.</li>
+        <li><strong>Secure Session Architecture</strong> — Implements JWT-based authentication, role-based room admission, waiting lobbies, encrypted private messaging, payload validation, and rate limiting to protect collaborative sessions from unauthorized access and abuse.</li>
+        <li><strong>Sandboxed Code Execution</strong> — Integrates a self-hosted Piston execution engine that safely runs code inside isolated containers with strict CPU, memory, and filesystem constraints, allowing collaborative coding without compromising infrastructure security.</li>
+        <li><strong>AI-Powered Interview Assistance</strong> — Employs large language models to analyze uploaded resumes and automatically generate contextual technical interview questions, helping interviewers conduct more relevant and personalized assessments.</li>
+        <li><strong>Cloud-Native &amp; Production Ready</strong> — Designed using React, Node.js, PostgreSQL, Prisma, Redis, Docker, Supabase Authentication, and Nginx, following modular service boundaries that make the platform scalable, maintainable, and ready for production deployments.</li>
+      </ul>
+    </section>
+    <section class="case-section">
+      <h2>Key Engineering Highlights</h2>
+      <ul>
+        <li>Unified real-time engineering workspace eliminating context switching.</li>
+        <li>Conflict-free collaborative editing with CRDT-based synchronization.</li>
+        <li>Distributed event-driven architecture supporting horizontal scalability.</li>
+        <li>Secure multi-user collaboration with authentication, authorization, and encrypted communication.</li>
+        <li>Containerized multi-language code execution with resource isolation.</li>
+        <li>AI-assisted technical interview preparation and candidate evaluation.</li>
+        <li>Optimized for pair programming, remote software development, technical interviews, mentoring, and collaborative learning.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="footer container"><span>Synccode</span><a href="https://www.synccode.in/" target="_blank" rel="noreferrer">open live</a></footer>
+  <div class="command-menu" data-command-menu hidden><div class="command-panel"><input type="search" placeholder="Jump to a page..." data-command-input><div class="command-list"><a href="../index.html">about</a><a href="../work/index.html">work</a><a href="index.html">projects</a><a href="../notes/index.html">notes</a><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></div></div></div>
+  <script src="../script.js"></script>
+</body>
+</html>

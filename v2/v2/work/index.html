@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>work | Gourab Choudhury</title>
+  <link rel="icon" href="../assets/gourab-logo.png">
+  <link rel="stylesheet" href="../styles.css?v=14">
+</head>
+<body data-page="work">
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a class="brand" href="../index.html">Gourab Choudhury</a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+      <div class="nav-links">
+        <a data-nav="about" href="../index.html">about</a>
+        <a data-nav="work" href="index.html">work</a>
+        <a data-nav="projects" href="../projects/index.html">projects</a>
+        <a data-nav="notes" href="../notes/index.html">notes</a>
+        <a data-nav="resume" href="../resume/index.html">resume</a><a data-nav="contact" href="../contact/index.html">contact</a>
+        <button class="command-button" type="button" data-command-open>ctrl k</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container page narrow">
+    <header class="page-head">
+      <h1>Work</h1>
+      <p>
+        A practical engineering timeline: platform services, backend systems, fintech APIs,
+        mobile product work, and enterprise foundations.
+      </p>
+    </header>
+
+    <nav class="company-rail" aria-label="Jump to a company">
+      <a class="company-rail-item" href="#imagine-learning" data-label="Imagine Learning">
+        <img src="../assets/Imagine_Learning_Logo.webp" alt="Imagine Learning logo">
+      </a>
+      <a class="company-rail-item" href="#mansio-ai" data-label="Mansio AI">
+        <img src="../assets/Mansio.png" alt="Mansio AI logo">
+      </a>
+      <a class="company-rail-item" href="#decentro" data-label="Decentro">
+        <img src="../assets/Decentro.png" alt="Decentro logo">
+      </a>
+      <a class="company-rail-item" href="#mythyaverse" data-label="MythyaVerse">
+        <img src="../assets/Mythyaverse.jpeg" alt="MythyaVerse logo">
+      </a>
+      <a class="company-rail-item" href="#hcltech" data-label="HCLTech">
+        <img src="../assets/hcltech.avif" alt="HCLTech logo">
+      </a>
+    </nav>
+
+    <section class="cv-section">
+      <h2>Experience</h2>
+
+      <article class="cv-item important" id="imagine-learning">
+        <div class="cv-date">
+          Jul 2026 - Present
+          <img class="company-logo" src="../assets/Imagine_Learning_Logo.webp" alt="Imagine Learning logo">
+        </div>
+        <div class="cv-content">
+          <h3>Software Engineer 1 · Imagine Learning</h3>
+          <p class="muted">Backend and Platform Services · C#/.NET · AWS · Agentic AI (n8n, RAG, Langchain, Harness) </p>
+          <ul>
+            <li><strong>Token Vault: OAuth token proxy for credential security.</strong> Part of the team responsible for Token Vault, a standalone OAuth token-proxy microservice built with C#/.NET on AWS Lambda, DynamoDB, KMS, SQS/SNS that isolates long-lived provider credentials from consuming services. Working within this team's ownership as I move into full accountability for the service's reliability and rollout. A core part of the auth layer serving 20M+ users nationally.</li>
+            <li><strong>Secure long-lived credential storage for integrations.</strong> Part of the team accountable for the credential-storage design that keeps OAuth refresh tokens for Google Classroom and other providers encrypted through AWS KMS and never exposed outside the vault boundary. Working alongside this team as I take on ownership of the pattern across current and future integrations. Foundational to how the platform protects educator and student data at scale.</li>
+            <li><strong>OTK v2 migration: Registration and ERT APIs.</strong> Part of the team responsible for migrating Registration and ERT API workloads onto OTK v2, including CQRS-based service endpoints and MongoDB Atlas access patterns. Working within this ownership as I step into the migration effort directly, toward a more scalable and observable foundation for nationwide authentication services.</li>
+            <li><strong>Caliper event consumers for roster/deactivation propagation.</strong> Part of the team owning the event-consumer layer that processes Caliper-spec events through Kinesis/SQS to propagate roster updates and deactivations downstream. Working within this ownership as I take on the pipeline, including its dead-letter queue and replay safeguards. Keeps access and roster state synchronized in near real time across the ecosystem.</li>
+            <li><strong>Google Classroom / DAGS integration.</strong> Part of the team responsible for the Google Classroom integration into Readiness DAGS: OAuth 2.0 authorization code flow, OIDC launch, and automated grade passback. Working within this ownership as I take on the integration directly. Keeps teacher gradebooks and classroom rosters in sync without manual work.</li>
+            <li><strong>Rostering support across multiple ingestion channels.</strong> Part of the team responsible for rostering support across Clever, ClassLink, SFTP, and CSV import paths, monitored via New Relic, Grafana, and OpenSearch. Working within this ownership as I take on operational responsibility directly. Ensures rostering data stays reliable across a wide range of district data sources.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="cv-item" id="mansio-ai">
+        <div class="cv-date">
+          May 2026 - Jun 2026
+          <img class="company-logo" src="../assets/Mansio.png" alt="Mansio AI logo">
+        </div>
+        <div class="cv-content">
+          <h3>Founding Backend Engineer · Mansio AI</h3>
+          <p class="muted">Early product backend · AI workflows</p>
+          <ul>
+            <li>Built an internal automation tool and backend API for registering new real estate projects and listings, including analytics and status tracking, replacing a manual onboarding process with a structured pipeline.</li>
+            <li>Built an automated pipeline to upload and organize real estate agents' demo and property videos, handling playlist categorization, metadata tagging, and links back to the existing project database.</li>
+            <li>Set up Mixpanel-based tracking for frontend behavior, covering navigation and mapping interactions plus chatbot query parameters to surface data that informed upgrades to search, mapping, and the automated query system.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="cv-item" id="decentro">
+        <div class="cv-date">
+          Nov 2025 - May 2026
+          <img class="company-logo" src="../assets/Decentro.png" alt="Decentro logo">
+        </div>
+        <div class="cv-content">
+          <h3>SDE Intern · Decentro</h3>
+          <p class="muted">Remote · QA Automation · Backend Engineering</p>
+          <div class="project-responsibilities">
+            <section>
+              <h4>CKYC Bulk Automation System</h4>
+              <ul>
+                <li>Built an end-to-end automation framework covering the full CKYC bulk-upload lifecycle: API submission, database persistence, file generation, SFTP transfer, and asynchronous status polling. Used Robot Framework for orchestration, Python for utility and data-transformation logic, MySQL for transaction validation, and Selenium for SFTP/UI automation.</li>
+                <li>Implemented retry-based polling and validation across all processing phases to catch asynchronous timing issues that manual testing missed, improving regression speed and confidence in CKYC service production readiness.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>HyperStream Automation and Slack Callback System</h4>
+              <ul>
+                <li>Replaced a fragile, externally hosted webhook dependency with an internally controlled callback-routing layer for HyperStream's event-driven payment and KYC workflows, improving visibility into asynchronous transaction flows.</li>
+                <li>Designed the routing layer to intercept callback payloads and redirect them to module-specific Slack channels through Slack API integration, turning Slack into a real-time monitoring interface with structured messages and consistent logging for failed or delayed callbacks.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Decentro Knowledgebase: AI-Based Internal Knowledge Base</h4>
+              <ul>
+                <li>Built a company-wide knowledge engineering system that unified code repositories, PRDs, Jira tickets, and documentation into a queryable intelligence layer, combining vector-based semantic search with a Neo4j knowledge graph for structural reasoning across code, APIs, and tickets.</li>
+                <li>Designed the ingestion pipeline with AST-based code parsing, NLP-based document chunking, embedding generation, and a hybrid retrieval engine that blends vector similarity search with graph traversal. Added continuous repository-webhook sync so the knowledge base stays current as the codebase evolves.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>AI Code Review and Intelligent Peer Review System</h4>
+              <ul>
+                <li>Built a code-review automation system on top of the Decentro Knowledgebase, anchoring reviews against Jira requirements by mapping ticket descriptions and acceptance criteria from the Jira API to PR diffs from Bitbucket and Git APIs.</li>
+                <li>Implemented multi-layer validation for code quality, OWASP-style security checks, stability analysis, and graph-based dependency-impact analysis. Generated severity-tagged PR reports with fix suggestions, cutting manual review effort by roughly 50%.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Additional Contributions</h4>
+              <ul>
+                <li>Owned backend QA for a full sprint cycle as primary QA across a developer team, validating 15+ tickets end to end for API correctness and business-logic accuracy.</li>
+                <li>Performed frontend manual testing across CTA forms and dashboards in the Fabric ecosystem, and contributed cross-product API automation across payments, payouts, AutoPay, and verification services.</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="cv-item" id="mythyaverse">
+        <div class="cv-date">
+          Apr 2025 - Aug 2025
+          <img class="company-logo" src="../assets/Mythyaverse.jpeg" alt="MythyaVerse logo">
+        </div>
+        <div class="cv-content">
+          <h3>SDE Intern · MythyaVerse</h3>
+          <p class="muted">Internship · Remote</p>
+          <div class="project-responsibilities">
+            <section>
+              <h4>AgriTech Application: End-to-End Ownership</h4>
+              <ul>
+                <li>Acted as the sole engineering point of contact for the client, leading requirement-gathering calls, translating business needs into technical specifications, and owning the buyer/seller marketplace and super-admin dashboard end to end.</li>
+                <li>Made the core technical decisions: Flutter/Dart mobile client, Node.js and Express backend, MongoDB data layer, GCP hosting, and Firebase for push notifications and supporting flows such as two-factor authentication.</li>
+                <li>Partnered directly with the UI/UX designer to turn 87+ screens into a consistent, production-quality interface, balancing design intent with technical feasibility.</li>
+                <li>Owned deployment and final handoff to the client as the single technical owner across the entire build.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>VR Place: AI Voice Interview and Coaching Platform</h4>
+              <ul>
+                <li>Integrated OpenAI Whisper speech-to-text and tuned the pipeline to reduce transcription latency for near real-time voice interaction during mock interviews.</li>
+                <li>Connected speech-to-text output to a multi-LLM routing layer, including Gemini 2.5 Flash for fast multilingual response analysis, with provider fallback logic so a single model outage or slow response does not break the session.</li>
+                <li>Built a session context window that persists interview state independently of the live connection, preventing network jitter or broker-level latency from losing conversational context mid-interview.</li>
+              </ul>
+            </section>
+            <section>
+              <h4>Elevate Classes: Class Monitoring System</h4>
+              <ul>
+                <li>Engineered the frontend architecture with React.js and Next.js for a class-monitoring dashboard, focused on real-time usability and performance for instructors tracking live sessions.</li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="cv-item" id="hcltech">
+        <div class="cv-date">
+          Jun 2022 - Sep 2022
+          <img class="company-logo" src="../assets/hcltech.avif" alt="HCLTech logo">
+        </div>
+        <div class="cv-content">
+          <h3>Trainee · HCLTech</h3>
+          <p class="muted">TechBee Early Career Program · Noida, Uttar Pradesh, India · Remote</p>
+          <ul>
+            <li><strong>Selected for HCLTech's TechBee Early Career Program.</strong> Participated in a competitive, job-oriented training initiative for students directly out of Class XII, designed to build industry-ready software engineers from the ground up.</li>
+            <li><strong>Completed structured Java full-stack training.</strong> Covered Core Java, Spring Framework, object-oriented programming, RESTful API design, and enterprise application patterns.</li>
+            <li><strong>Built a software engineering foundation.</strong> Strengthened data structures, version control, and enterprise-grade development practices that directly prepared me for the backend engineering roles that followed.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="cv-section">
+      <h2>Engineering Stack</h2>
+      <div class="stack-list">
+        <p><strong>Backend and systems</strong> C#/.NET, Java, Spring Boot, Python, microservices, AWS(ECS, SQS, Lambda, S3, etc.), MySQL, MongoDB Atlas</p>
+        <p><strong>Frontend and mobile</strong> Flutter, Dart, TypeScript, React & Vue, HTML, CSS</p>
+        <p><strong>AI and Machine Learning</strong> Langchain, RAG, Harness, n8n, GenAI workflows, Model Finetuning</p>
+        <p><strong>Engineering practice</strong> Git, Docker, Postman, Swagger, JUnit, Mockito, CI/CD, SonarQube, New Relic, Grafana, OpenSearch</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container"><span>work</span><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></footer>
+  <div class="command-menu" data-command-menu hidden><div class="command-panel"><input type="search" placeholder="Jump to a page..." data-command-input><div class="command-list"><a href="../index.html">about</a><a href="index.html">work</a><a href="../projects/index.html">projects</a><a href="../notes/index.html">notes</a><a href="../resume/index.html">resume</a><a href="../contact/index.html">contact</a></div></div></div>
+  <script src="../script.js"></script>
+</body>
+</html>
