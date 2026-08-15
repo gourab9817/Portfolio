@@ -1,0 +1,14 @@
+{
+  "name": "blog-build",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static build script: markdown posts -> blogs.gourabchoudhury.dev",
+  "scripts": {
+    "build": "node build/build.js"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.10.0",
+    "markdown-it": "^14.1.0"
+  }
+}

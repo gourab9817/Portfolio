@@ -1,0 +1,138 @@
+.post-meta {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin: 0 0 0.5rem;
+}
+
+.category-badge {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.category-badge:hover {
+  text-decoration: underline;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.category-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.category-list a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.category-list a:hover {
+  color: var(--accent);
+}
+
+.cat-count {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.post-body {
+  line-height: 1.7;
+}
+
+.post-body h1 {
+  margin-bottom: 0.25rem;
+}
+
+.post-body h2,
+.post-body h3 {
+  margin-top: 2rem;
+}
+
+.post-body p,
+.post-body ul,
+.post-body ol {
+  margin: 1rem 0;
+}
+
+.post-body a {
+  color: var(--accent);
+}
+
+.post-body blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: var(--soft);
+  color: var(--muted);
+}
+
+.post-body img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.post-body pre.hljs {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--accent-ink);
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.post-body code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+.post-body :not(pre) > code {
+  background: var(--soft);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+
+/* highlight.js tokens, tuned to the site's dark-ink code background */
+.hljs-comment,
+.hljs-quote {
+  color: #8b93a1;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal {
+  color: #7dd3a8;
+}
+
+.hljs-string,
+.hljs-attr,
+.hljs-attribute {
+  color: #f2c078;
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-type {
+  color: #79c0ff;
+}
+
+.hljs-title,
+.hljs-function,
+.hljs-title.function_ {
+  color: #eef8f4;
+  font-weight: 600;
+}
