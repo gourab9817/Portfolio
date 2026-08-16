@@ -636,7 +636,7 @@ Everything above produces a byproduct: an ordered, causally linked record. **[Pr
 
 ### 8.1 Speak the standard dialect, carefully
 
-**[Established]** The OpenTelemetry GenAI semantic conventions define span names and attributes for model calls, agent invocations, tool execution, retrieval and memory operations, converging on `invoke_agent`, `chat` and `execute_tool` under a `gen_ai` namespace. The work moved to a dedicated repository in mid 2026.
+**[Established]** The OpenTelemetry GenAI semantic conventions define span names and attributes for model calls, agent invocations, tool execution, retrieval and memory operations, converging on `invoke_agent`, `chat` and `execute_tool` under a `gen_ai` namespace. The GenAI work now lives in [its own repository](https://github.com/open-telemetry/semantic-conventions-genai), split out from the main semantic conventions.
 
 Two cautions, and the first matters most. The conventions are explicitly in development status, not stable. Adopt the shape, meaning span nesting, token attributes and duration metrics, but isolate the literal attribute strings behind a thin mapping layer so a rename does not ripple through your codebase.
 
@@ -752,7 +752,7 @@ Break even arrives fast. The write premium is recovered once roughly 1.3 calls h
 | Batch or async for non interactive work | Large on eligible traffic | Low | Latency, only where nobody waits |
 | Reduce retries via better guardrail errors | Underrated | Medium | None |
 
-**[Established]** Published measurement exists for the first lever. A January 2026 cross provider study of long horizon agentic tasks reported cost reductions of 41 to 80 percent, and time to first token improvements of 13 to 31 percent, from prompt caching. Its counterintuitive finding was that caching everything, including volatile tool results, can increase latency, while caching only the stable prefix delivered more consistent benefit. That matches the assembly rule in Section 4.4, and it is the one figure in this article I did not compute myself.
+**[Established]** Published measurement exists for the first lever. [*Don't Break the Cache*](https://arxiv.org/abs/2601.06007), a January 2026 cross provider study of long horizon agentic tasks, reported cost reductions of 41 to 80 percent, and time to first token improvements of 13 to 31 percent, from prompt caching. Its counterintuitive finding was that caching everything, including volatile tool results, can increase latency, while caching only the stable prefix delivered more consistent benefit. That matches the assembly rule in Section 4.4, and it is the one figure in this article I did not compute myself.
 
 **[Unverified]** The last row is my own emphasis and is unmeasured. A guardrail returning *blocked: field amount exceeds tenant limit 500, revise and resubmit* costs one retry. A guardrail returning *error* costs three or four. Retry count is a cost line item that almost nobody attributes to error message quality.
 
@@ -913,18 +913,28 @@ Presentation can imply evidence that does not exist, so here is the ledger for t
 
 None of the primitives here are novel. The synthesis is the contribution, and a synthesis is a claim about organisation rather than discovery.
 
+## What I read first
+
+Three articles put the harness idea in front of me, and this piece is a direct response to them. The layered framing I push against in Section 2 is theirs, and it is a good framing. My disagreement is about where the centre of gravity sits, not about whether the harness is the right unit of analysis.
+
+| Article | Author | Where |
+| --- | --- | --- |
+| [Harness Engineering for AI Agents in 2026](https://medium.com/@visrow/harness-engineering-for-ai-agents-in-2026-114fcb8edf9e) | Vishal Mysore | Medium, May 2026 |
+| [Harness Engineering Explained: The One Layer Behind Every AI Agent That Actually Works](https://pub.towardsai.net/harness-engineering-explained-the-one-layer-behind-every-ai-agent-that-actually-works-471e82030049) | Divy Yadav | Towards AI, June 2026 |
+| [Observability for the Agentic Harness](https://ai.gopubby.com/observability-for-the-agentic-ai-harness-07b322518206) | Debmalya Biswas | AI Advances, August 2026 |
+
+Mysore makes the case that enterprise reliability comes from the operational frame around the model rather than the model itself. Yadav names the control layer and argues it is the thing that separates agents that work from demos that do not. Biswas is the closest to my argument, shifting the question from isolated intelligence to managed execution, and Section 8 is essentially me trying to answer where those observability signals should come from.
+
 ## References
 
-**Event sourcing and state.** Martin Fowler, *Event Sourcing* and *Focusing on Events*, martinfowler.com. Also *What do you mean by event driven?*, on the limits of replay when external dependencies are involved.
+**Event sourcing and state.** Martin Fowler, [*Event Sourcing*](https://martinfowler.com/eaaDev/EventSourcing.html) and [*Focusing on Events*](https://martinfowler.com/eaaDev/EventNarrative.html), 2005 to 2006. Also [*What do you mean by event driven?*](https://martinfowler.com/articles/201701-event-driven.html), 2017, on the limits of replay when external dependencies are involved.
 
-**Distributed systems.** Leslie Lamport, *Time, Clocks, and the Ordering of Events in a Distributed System*, Communications of the ACM 21(7), 1978. Stripe, *Idempotent Requests*, docs.stripe.com, still the canonical treatment of indeterminate outcomes.
+**Distributed systems.** Leslie Lamport, [*Time, Clocks, and the Ordering of Events in a Distributed System*](https://lamport.azurewebsites.net/pubs/time-clocks.pdf), Communications of the ACM 21(7), 1978. Stripe, [*Idempotent Requests*](https://docs.stripe.com/api/idempotent_requests), still the canonical treatment of indeterminate outcomes.
 
-**Checkpointing.** J. W. Young, 1974, and J. T. Daly, 2006, on optimal checkpoint interval. See also *A survey on checkpointing strategies: should we always checkpoint à la Young/Daly?* for where the assumptions break down.
+**Checkpointing.** J. W. Young, 1974, and J. T. Daly, 2006, on optimal checkpoint interval. See also *A survey on checkpointing strategies: should we always checkpoint à la Young/Daly?* for where those assumptions break down. I am citing both from the literature rather than from a link I have verified, so treat the Section 6.2 transfer as the heuristic it is labelled.
 
-**Observability.** OpenTelemetry GenAI Semantic Conventions, github.com/open-telemetry/semantic-conventions-genai. Note the development status and the sensitive data warnings in the attribute registry.
+**Observability.** OpenTelemetry, [Semantic Conventions for Generative AI](https://github.com/open-telemetry/semantic-conventions-genai), covering spans, metrics and events for GenAI clients and MCP. The rendered specification lives at [opentelemetry.io/docs/specs/semconv/gen-ai](https://opentelemetry.io/docs/specs/semconv/gen-ai/). Note the development status and the sensitive data warnings in the attribute registry.
 
-**Cost.** *Don't Break the Cache: An Evaluation of Prompt Caching for Long-Horizon Agentic Tasks*, arXiv:2601.06007, 2026. Provider caching documentation should be checked directly, since rates change.
-
-**Prior work on the harness framing.** Vishal Mysore, *Harness Engineering for AI Agents in 2026*. Divy Yadav, *Harness Engineering Explained*. Debmalya Biswas, *Observability for the Agentic Harness*.
+**Cost.** Elias Lumer et al., [*Don't Break the Cache: An Evaluation of Prompt Caching for Long-Horizon Agentic Tasks*](https://arxiv.org/abs/2601.06007), arXiv:2601.06007, January 2026. This is the source of the 41 to 80 percent cost reduction and 13 to 31 percent time to first token figures in Section 9.3. Provider caching rate cards should be checked directly, since they move.
 
 If you build one thing from this, build phase one. The rest of the architecture is an argument. An idempotency key is a refund that does not happen twice.
