@@ -9,6 +9,8 @@
   "dependencies": {
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.10.0",
-    "markdown-it": "^14.1.0"
+    "katex": "^0.18.4",
+    "markdown-it": "^14.1.0",
+    "markdown-it-texmath": "^1.0.0"
   }
 }

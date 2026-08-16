@@ -1,7 +1,14 @@
+/* Blog pages get a wider canvas than the rest of the site (which tops out at
+   860px via .narrow) -- a two-column list+sidebar needs more room to avoid
+   turning into a narrow island with dead space on both sides. */
+body[data-page="blog"] {
+  --max: 1320px;
+}
+
 .post-meta {
   color: var(--muted);
   font-size: 0.875rem;
-  margin: 0 0 0.5rem;
+  margin: 0.35rem 0 0;
 }
 
 .category-badge {
@@ -14,50 +21,264 @@
   text-decoration: underline;
 }
 
-.category-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.category-list li {
+/* Title + meta sharing a row: title grows, meta hugs the right edge, wraps
+   under the title on narrow screens instead of squeezing everything into a
+   single stacked left-aligned column. */
+.post-row-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.9rem 0;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.post-row-head h2 {
+  margin-bottom: 0;
+}
+
+.post-row-meta,
+.list-count {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+
+.page-head .kicker {
+  margin-bottom: 0.6rem;
+}
+
+/* Thin utility row between the page intro and the list -- gives the page a
+   "this is a browsable collection" feel instead of the heading dropping
+   straight into a wall of entries. */
+.list-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
   border-bottom: 1px solid var(--line);
 }
 
-.category-list a {
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
+.blog-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
 }
 
-.category-list a:hover {
+.blog-layout.has-toc {
+  grid-template-columns: 220px minmax(0, 1fr) 220px;
+}
+
+.blog-sidebar {
+  position: sticky;
+  top: 5.5rem;
+  padding-right: 1.5rem;
+  border-right: 1px solid var(--line);
+}
+
+.blog-sidebar h2 {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--accent);
+  margin: 0 0 1rem;
 }
 
-.cat-count {
+.blog-sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.blog-sidebar a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.blog-sidebar a:hover {
+  background: var(--soft);
+}
+
+.blog-sidebar a.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 650;
+}
+
+.sidebar-count {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+}
+
+.blog-sidebar a.active .sidebar-count {
+  color: var(--accent-ink);
+  opacity: 0.85;
+}
+
+.blog-main {
+  min-width: 0;
+}
+
+.blog-main .page-head {
+  margin-bottom: 1.6rem;
+}
+
+.blog-main .page-head p {
+  max-width: none;
+}
+
+/* "On this page" -- auto-built from the post's own h2/h3s at build time,
+   mirrors reading position via IntersectionObserver (toc.js). */
+.blog-toc {
+  position: sticky;
+  top: 5.5rem;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--line);
+  align-self: start;
+}
+
+.blog-toc h2 {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.blog-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-toc a {
+  display: block;
+  padding: 0.4rem 0 0.4rem 0.85rem;
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.blog-toc .toc-level-3 a {
+  padding-left: 1.6rem;
+  font-size: 0.78rem;
+}
+
+.blog-toc a:hover {
+  color: var(--ink);
+  border-left-color: var(--muted);
+}
+
+.blog-toc a.active {
+  border-left-color: var(--accent);
+  color: var(--ink);
+  font-weight: 650;
+}
+
+/* Metadata as labeled stat cells rather than an inline "date - read" string
+   -- more scannable, reads less like an afterthought under the title. */
+.post-stats {
+  display: flex;
+  gap: 2.25rem;
+  margin: 1.25rem 0;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.post-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.post-stat-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.post-stat-value {
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1080px) {
+  .blog-layout.has-toc {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+
+  .blog-toc {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .blog-layout,
+  .blog-layout.has-toc {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .blog-sidebar {
+    position: static;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .blog-sidebar ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .post-stats {
+    gap: 1.5rem;
+  }
 }
 
 .post-body {
+  max-width: 720px;
+  margin-inline: auto;
   line-height: 1.7;
 }
 
+/* The site's base h1 (clamp 2.7-5.8rem) is sized for page-level titles like
+   "Work" or "Blog" -- a per-post title at that scale ate most of the
+   viewport. Post titles get their own, smaller scale. */
 .post-body h1 {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.9rem, 4.2vw, 2.75rem);
+  line-height: 1.15;
 }
 
 .post-body h2,
 .post-body h3 {
   margin-top: 2rem;
+  /* Anchor-jumping to a heading (TOC click, in-page link, browser back/forward
+     with a #hash) would otherwise land it flush behind the sticky header. */
+  scroll-margin-top: 6rem;
 }
 
 .post-body p,
@@ -68,6 +289,59 @@
 
 .post-body a {
   color: var(--accent);
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2.5rem 0;
+}
+
+.post-body .table-wrap {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.post-body table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.88rem;
+}
+
+.post-body th,
+.post-body td {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-body thead th {
+  background: var(--soft);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.post-body tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.post-body tbody tr:hover {
+  background: var(--soft);
+}
+
+.post-body td code,
+.post-body th code {
+  font-size: 0.82em;
+  white-space: nowrap;
 }
 
 .post-body blockquote {
@@ -105,6 +379,80 @@
   border-radius: 4px;
 }
 
+/* mermaid.js replaces this element's contents with an <svg> at runtime;
+   until then it briefly shows the raw diagram source, hence text-indent
+   -9999px isn't used -- keep it plain so a JS failure degrades to readable
+   text instead of an invisible block. */
+.post-body pre.mermaid {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  overflow-x: auto;
+  text-align: center;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+}
+
+.post-body pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* markdown-it-texmath wraps $$block$$ math in <eqn>/<section>, inline $math$
+   in <eq> -- neither is a standard element, so give the block form explicit
+   layout and let wide equations scroll instead of overflowing the column. */
+.post-body eqn {
+  display: block;
+  margin: 1.5rem 0;
+}
+
+.post-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+/* fenced ```math / ```latex blocks (rendered directly via katex.renderToString) */
+.post-body > .katex-display {
+  margin: 1.5rem 0;
+}
+
+/* Every horizontally-scrollable element (tables, code, mermaid, math) gets a
+   thin themed scrollbar instead of the thick default OS one -- a fat native
+   scrollbar reads as broken UI even when the overflow is real and correct. */
+.post-body .table-wrap,
+.post-body .katex-display,
+.post-body pre.hljs,
+.post-body pre.mermaid {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.post-body .table-wrap::-webkit-scrollbar,
+.post-body .katex-display::-webkit-scrollbar,
+.post-body pre.hljs::-webkit-scrollbar,
+.post-body pre.mermaid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.post-body .table-wrap::-webkit-scrollbar-track,
+.post-body .katex-display::-webkit-scrollbar-track,
+.post-body pre.hljs::-webkit-scrollbar-track,
+.post-body pre.mermaid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.post-body .table-wrap::-webkit-scrollbar-thumb,
+.post-body .katex-display::-webkit-scrollbar-thumb,
+.post-body pre.hljs::-webkit-scrollbar-thumb,
+.post-body pre.mermaid::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
 /* highlight.js tokens, tuned to the site's dark-ink code background */
 .hljs-comment,
 .hljs-quote {
@@ -135,4 +483,53 @@
 .hljs-title.function_ {
   color: #eef8f4;
   font-weight: 600;
+}
+
+.hljs-tag,
+.hljs-name {
+  color: #f2789f;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-params {
+  color: #c9d1d9;
+}
+
+.hljs-meta,
+.hljs-meta-keyword,
+.hljs-doctag {
+  color: #c297f0;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #7dd3a8;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #f28779;
+}
+
+.hljs-deletion {
+  color: #f2789f;
+  background: rgba(242, 120, 159, 0.12);
+}
+
+.hljs-addition {
+  color: #7dd3a8;
+  background: rgba(125, 211, 168, 0.12);
+}
+
+.hljs-strong {
+  font-weight: 700;
+}
+
+.hljs-emphasis {
+  font-style: italic;
 }
